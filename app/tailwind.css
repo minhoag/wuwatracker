@@ -1,0 +1,152 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 44.21 29.23% 91.25%;
+    --foreground: 48 19.61% 20%;
+    --muted: 44 29.41% 90%;
+    --muted-foreground: 50.77 6.88% 37.06%;
+    --popover: 52 23.81% 87.65%;
+    --popover-foreground: 50.77 19.4% 13.14%;
+    --card: 53.33 25.71% 93.14%;
+    --card-foreground: 48 19.61% 20%;
+    --border: 50 12.24% 80.78%;
+    --input: 50.77 7.98% 68.04%;
+    --primary: 18 57% 44%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 257.14 50.03% 85.37%;
+    --secondary-foreground: 50.77 8.5% 30%;
+    --accent: 46.15 28.26% 81.96%;
+    --accent-foreground: 50.77 19.4% 13.14%;
+    --ring: 210 74.8% 49.8%;
+    --chart-1: 18 57% 44%;
+    --chart-2: 257.14 50.03% 85.37%;
+    --chart-3: 46.15 28.26% 81.96%;
+    --chart-4: 257.14 50.03% 88.37%;
+    --chart-5: 18 60% 44%;
+    --radius: 0.5rem;
+
+    --sidebar-background: 53.33 25.71% 93.14%;
+    --sidebar-foreground: 48 19.61% 20%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 53.33 25.71% 93.14%;
+    --sidebar-accent: 46.15 28.26% 81.96%;
+    --sidebar-accent-foreground: 50.77 19.4% 13.14%;
+    --sidebar-border: 50 12.24% 80.78%;
+    --sidebar-ring: 210 74.8% 49.8%;
+
+    --five-star: 43, 96%, 56%;
+    --five-star-dark: 21, 92%, 14%;
+    --four-star: 271, 91%, 65%;
+    --four-star-dark: 263, 85%, 38%;
+    --three-star: 197, 89%, 50%;
+    --three-star-dark: 204, 80%, 16%;
+  }
+
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --card: 0 0% 6.63%;
+    --card-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 0 0% 98%;
+    --chart-2: 0 0% 14.9%;
+    --chart-3: 0 0% 14.9%;
+    --chart-4: 0 0% 17.9%;
+    --chart-5: 0 3% 98%;
+
+    --sidebar-background: 0 0% 6.63%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 38 16% 12%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 0 0% 14.9%;
+    --sidebar-ring: 0 0% 83.1%;
+  }
+}
+
+::-webkit-scrollbar {
+  height: 0.2em;
+  width: 0.4em;
+}
+
+::-webkit-scrollbar-track {
+  background: #f2f1e9;
+}
+
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb:hover {
+  background: #3d3929;
+}
+
+.dark {
+  ::-webkit-scrollbar {
+    height: 0.2em;
+    width: 0.4em;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #1b1b1b;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #262626;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #241e2f;
+  }
+}
+
+html {
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  -moz-tab-size: 4;
+  tab-size: 4;
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    sans-serif,
+    Apple Color Emoji,
+    Segoe UI Emoji,
+    Segoe UI Symbol,
+    Noto Color Emoji;
+  font-feature-settings: normal;
+  font-variation-settings: normal;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  @media (prefers-color-scheme: dark) {
+    color-scheme: dark;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.camellya {
+  top: -3rem;
+}
