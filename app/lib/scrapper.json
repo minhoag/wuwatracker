@@ -1,0 +1,85 @@
+[
+  {
+    "name": "Rinascita Echo Fiesta",
+    "vietnameseName": "",
+    "eventType": "Event",
+    "imgSrc": [
+      "https://img.game8.co/4071468/0f68ec0eb05057c9c3e984c6bf47f3c5.png/show"
+    ],
+    "description": "Rinascita Echo Fiesta is a card-collecting web event that will task players to collect as many Rinascita echo cards as possible to get rewards like Astrites, enhancement materials, and a Malleable Elite Class Echo item for Version 2.0!",
+    "duration": "December 19, 2024 - January 19, 2025"
+  },
+  {
+    "name": "Ascendant Aces",
+    "vietnameseName": "",
+    "eventType": "Event",
+    "imgSrc": [
+      "https://img.game8.co/4075212/d97eef60c9737d8ad0932bfde1fda78a.png/show"
+    ],
+    "description": "Ascendant Aces is Wuthering Waves' character trial run event. At the time of writing, you can try out Carlotta, Zhezhi, Sanhua, Chixia, Mortefi in a closed arena with enemies to defeat.",
+    "duration": "January 2, 2025 - January 23, 2025"
+  },
+  {
+    "name": "Gifts of Joyous Tunes",
+    "vietnameseName": "",
+    "eventType": "Event",
+    "imgSrc": [
+      "https://img.game8.co/4075213/10541f5a0220dc7588631ecb9484692f.png/show"
+    ],
+    "description": "Gifts of Joyous Tunes is a Log-in event where players may claim Lustrous Tides or Radiant Tides for every day that they log into the game until the end of the event's duration.",
+    "duration": "January 2, 2025 - February 12, 2025"
+  },
+  {
+    "name": "Traces of Tides",
+    "vietnameseName": "",
+    "eventType": "Event",
+    "imgSrc": [
+      "https://img.game8.co/4075215/b746f5a801a6a978479ae64c44cf3ec9.png/show"
+    ],
+    "description": "Traces of Tides is a Photo Collection Event. You must explore Rinascita and take a photo of its mesmerizing sceneries and memorable moments!",
+    "duration": "January 2, 2025 - February 12, 2025"
+  },
+  {
+    "name": "Pincer Maneuver Warriors",
+    "vietnameseName": "",
+    "eventType": "Event",
+    "imgSrc": [
+      "https://img.game8.co/4033360/a59d6afb302f090bf8d99c485d5d2643.png/show"
+    ],
+    "description": "Pincer Maneuver Warriors is a combat event where players have two teams to fight multiple waves of enemies with the help of unique buffs. Rewards for this event include Astrites, leveling materials, and more!",
+    "duration": "Part III : January 2, 2025 - January 23, 2025 Part IV : January 23, 2025 - February 12, 2025"
+  },
+  {
+    "name": "Although Colors Have No Form",
+    "vietnameseName": "",
+    "eventType": "Event",
+    "imgSrc": [
+      "https://img.game8.co/4079135/9e813034724f1f82922c064f1b6e8c50.png/show"
+    ],
+    "description": "Although Colors Have No Form is a Co-Op event where you have to investigate areas and fight multiple waves of enemies to save Claudia from her nightmares. There are Trial Resonators you could use and Support Echoes you can equip to strengthen your team!",
+    "duration": "January 9, 2025 - January 30, 2025"
+  }
+][
+  {
+    "name": "Stage in the Box and Thawborn Renewal",
+    "vietnameseName": "",
+    "eventType": "Character",
+    "imgSrc": [
+      "https://img.game8.co/4074997/b69519f7d73ed96d4916a78e2b4dd6c4.png/show",
+      "https://img.game8.co/4074993/8ee6174d7cd32d3ff3e9f9ae4163479c.png/show"
+    ],
+    "description": "Banners for Version 2.0 has been announced, with the new character Roccia coming in Phase 2 alongside the rerun of Jinhsi!",
+    "duration": "January 23, 2025"
+  },
+  {
+    "name": "Absolute Pulsation (Tragicomedy) and Absolute Pulsation (Ages of Harvest)",
+    "vietnameseName": "",
+    "eventType": "Weapon",
+    "imgSrc": [
+      "https://img.game8.co/4074998/d35bfe3a5368a1dc34d9286abf93a48c.png/show",
+      "https://img.game8.co/4075000/25567a2772f9b7c3e4bea6c139a8c530.png/show"
+    ],
+    "description": "The signature weapons of the rate-up 5-star characters will also run alongside their banners with Roccia's new 5-star weapon, Tragicomedy, coming in Version 2.0's second phase!",
+    "duration": "January 23, 2025"
+  }
+]
