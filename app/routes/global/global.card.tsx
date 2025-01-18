@@ -6,7 +6,6 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { CountUp } from '@/components/ui/count-up';
-import { GlobalChart } from '@/routes/global/global.chart';
 import { GlobalSelect } from '@/routes/global/global.select';
 import { ChartColumn } from 'lucide-react';
 

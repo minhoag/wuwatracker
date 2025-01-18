@@ -1,7 +1,11 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
-import { Sheet, SheetContent } from '@/components/ui/sheet';
+import {
+  Sheet,
+  SheetContent,
+  SheetTitle,
+} from '@/components/ui/sheet';
 import { Skeleton } from '@/components/ui/skeleton';
 import {
   Tooltip,
@@ -12,10 +16,8 @@ import {
 import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
 import { Slot } from '@radix-ui/react-slot';
-import {
-  VariantProps,
-  cva,
-} from 'class-variance-authority';
+import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
+import { VariantProps, cva } from 'class-variance-authority';
 import { MenuIcon } from 'lucide-react';
 import * as React from 'react';
 
@@ -36,8 +38,9 @@ type SidebarContext = {
   toggleSidebar: () => void;
 };
 
-const SidebarContext =
-  React.createContext<SidebarContext | null>(null);
+const SidebarContext = React.createContext<SidebarContext | null>(
+  null,
+);
 
 function useSidebar() {
   const context = React.useContext(SidebarContext);
@@ -71,8 +74,7 @@ const SidebarProvider = React.forwardRef<
     ref,
   ) => {
     const isMobile = useIsMobile();
-    const [openMobile, setOpenMobile] =
-      React.useState(false);
+    const [openMobile, setOpenMobile] = React.useState(false);
 
     // This is the internal state of the sidebar.
     // We use openProp and setOpenProp for control from outside the component.
@@ -115,10 +117,7 @@ const SidebarProvider = React.forwardRef<
 
       window.addEventListener('keydown', handleKeyDown);
       return () =>
-        window.removeEventListener(
-          'keydown',
-          handleKeyDown,
-        );
+        window.removeEventListener('keydown', handleKeyDown);
     }, [toggleSidebar]);
 
     // We add a state so that we can do data-state="expanded" or "collapsed".
@@ -217,8 +216,12 @@ const Sidebar = React.forwardRef<
           onOpenChange={setOpenMobile}
           {...props}
         >
+          <SheetTitle>
+            <VisuallyHidden.Root></VisuallyHidden.Root>
+          </SheetTitle>
           <SheetContent
             data-sidebar="sidebar"
+            aria-describedby={undefined}
             data-mobile="true"
             className="w-[--sidebar-width] bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden"
             style={
@@ -241,9 +244,7 @@ const Sidebar = React.forwardRef<
         ref={ref}
         className="group peer hidden md:block text-sidebar-foreground"
         data-state={state}
-        data-collapsible={
-          state === 'collapsed' ? collapsible : ''
-        }
+        data-collapsible={state === 'collapsed' ? collapsible : ''}
         data-variant={variant}
         data-side={side}
       >
@@ -414,10 +415,7 @@ const SidebarSeparator = React.forwardRef<
     <Separator
       ref={ref}
       data-sidebar="separator"
-      className={cn(
-        'mx-2 w-auto bg-sidebar-border',
-        className,
-      )}
+      className={cn('mx-2 w-auto bg-sidebar-border', className)}
       {...props}
     />
   );
@@ -524,10 +522,7 @@ const SidebarMenu = React.forwardRef<
   <ul
     ref={ref}
     data-sidebar="menu"
-    className={cn(
-      'flex w-full min-w-0 flex-col gap-1',
-      className,
-    )}
+    className={cn('flex w-full min-w-0 flex-col gap-1', className)}
     {...props}
   />
 ));
@@ -574,9 +569,7 @@ const SidebarMenuButton = React.forwardRef<
   React.ComponentProps<'button'> & {
     asChild?: boolean;
     isActive?: boolean;
-    tooltip?:
-      | string
-      | React.ComponentProps<typeof TooltipContent>;
+    tooltip?: string | React.ComponentProps<typeof TooltipContent>;
   } & VariantProps<typeof sidebarMenuButtonVariants>
 >(
   (
@@ -641,12 +634,7 @@ const SidebarMenuAction = React.forwardRef<
   }
 >(
   (
-    {
-      className,
-      asChild = false,
-      showOnHover = false,
-      ...props
-    },
+    { className, asChild = false, showOnHover = false, ...props },
     ref,
   ) => {
     const Comp = asChild ? Slot : 'button';
@@ -768,13 +756,7 @@ const SidebarMenuSubButton = React.forwardRef<
   }
 >(
   (
-    {
-      asChild = false,
-      size = 'md',
-      isActive,
-      className,
-      ...props
-    },
+    { asChild = false, size = 'md', isActive, className, ...props },
     ref,
   ) => {
     const Comp = asChild ? Slot : 'a';

@@ -1,4 +1,10 @@
 import { AppSidebar } from '@/components/app-sidebar';
+import { Footer } from '@/components/footer';
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@/components/ui/avatar';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -7,6 +13,16 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import ScrollProgress from '@/components/ui/scroll-progress';
 import { Separator } from '@/components/ui/separator';
 import {
   SidebarInset,
@@ -21,7 +37,9 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react';
-import { X } from 'lucide-react';
+import { BadgeCheck, CreditCard, LogIn, X } from 'lucide-react';
+import { NuqsAdapter } from 'nuqs/adapters/remix';
+import { useLocation } from 'react-router-dom';
 
 import styles from './tailwind.css?url';
 
@@ -42,11 +60,15 @@ export const links: LinksFunction = () => [
   },
 ];
 
-export function Layout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export const vietnamese: { [key: string]: string } = {
+  '/': 'Trang chủ',
+  '/trackers': 'Theo dõi triệu tập',
+  '/global': 'Số liệu toàn cầu',
+};
+
+export function Layout({ children }: { children: React.ReactNode }) {
+  const currentRoute = useLocation();
+  const matches = vietnamese[currentRoute.pathname];
   return (
     <html lang="en" className="dark">
       <head>
@@ -62,6 +84,7 @@ export function Layout({
         <SidebarProvider defaultOpen={false}>
           <AppSidebar />
           <SidebarInset>
+            <ScrollProgress className="top-0" />
             <div className="border-b relative border-border px-4 py-2 bg-sidebar/95 shadow backdrop-blur supports-[backdrop-filter]:bg-sidebar/60 dark:shadow-none">
               <div className="flex gap-2">
                 <div className="flex grow gap-3">
@@ -70,8 +93,7 @@ export function Layout({
                       className="px-2.5 py-0.5 group hover:text-foreground transition-colors"
                       href="/en/import/legacy"
                     >
-                      Upgrade your old pulls to the new
-                      format here
+                      Upgrade your old pulls to the new format here
                       <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover:duration-2000 ease-in-out group-hover:[transform:skew(-13deg)_translateX(100%)]">
                         <div className="relative h-full w-10 bg-black/5 dark:bg-white/15"></div>
                       </div>
@@ -95,22 +117,57 @@ export function Layout({
               <Breadcrumb>
                 <BreadcrumbList>
                   <BreadcrumbItem className="hidden md:block">
-                    <BreadcrumbLink href="#">
+                    <BreadcrumbLink href="/">
                       Trang chủ
                     </BreadcrumbLink>
                   </BreadcrumbItem>
                   <BreadcrumbSeparator className="hidden md:block" />
                   <BreadcrumbItem>
-                    <BreadcrumbPage>
-                      Bảng thông tin
-                    </BreadcrumbPage>
+                    <BreadcrumbPage>{matches}</BreadcrumbPage>
                   </BreadcrumbItem>
                 </BreadcrumbList>
               </Breadcrumb>
+              <div className="ml-auto flex items-center justify-center gap-1">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Avatar className="h-8 w-8 rounded-lg">
+                      <AvatarImage src={''} alt={''} />
+                      <AvatarFallback className="rounded-lg">
+                        CN
+                      </AvatarFallback>
+                    </Avatar>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent
+                    className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
+                    side={'bottom'}
+                    align="end"
+                    sideOffset={4}
+                  >
+                    <DropdownMenuLabel>Guest</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuGroup>
+                      <DropdownMenuItem>
+                        <BadgeCheck />
+                        Account
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <CreditCard />
+                        Billing
+                      </DropdownMenuItem>
+                    </DropdownMenuGroup>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>
+                      <LogIn />
+                      Sign In
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
             </header>
             <main className="min-h-[calc(100vh-2rem)] relative z-0 pb-8 sm:pb-0">
               {children}
             </main>
+            <Footer />
           </SidebarInset>
         </SidebarProvider>
         <ScrollRestoration />

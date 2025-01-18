@@ -17,148 +17,94 @@ import {
   SidebarMenuSubItem,
   SidebarRail,
 } from '@/components/ui/sidebar';
+import { Link } from '@remix-run/react';
 import {
-  AudioWaveform,
-  BookOpen,
-  Bot,
+  AudioLinesIcon,
+  CalendarHeart,
   ChevronRight,
-  Command,
-  Frame,
-  GalleryVerticalEnd,
-  Map,
-  PieChart,
-  Settings2,
-  SquareTerminal,
+  DownloadIcon,
+  Globe,
+  ListEnd,
+  MessageCircleQuestionIcon,
+  SwordsIcon,
+  Users2Icon,
   XCircle,
 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import * as React from 'react';
 
+type Props = {
+  title: string;
+  url: string;
+  name?: string;
+  icon?: LucideIcon;
+  isActive?: boolean;
+  avatar?: string;
+  email?: string;
+  items: Omit<Props, 'items'>[];
+};
 // This is sample data.
-const data = {
-  user: {
-    name: 'shadcn',
-    email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg',
-  },
-  teams: [
+const data: { [key: string]: Props[] } = {
+  'Tính năng chính': [
     {
-      name: 'Acme Inc',
-      logo: GalleryVerticalEnd,
-      plan: 'Enterprise',
-    },
-    {
-      name: 'Acme Corp.',
-      logo: AudioWaveform,
-      plan: 'Startup',
-    },
-    {
-      name: 'Evil Corp.',
-      logo: Command,
-      plan: 'Free',
-    },
-  ],
-  navMain: [
-    {
-      title: 'Playground',
-      url: '#',
-      icon: SquareTerminal,
+      title: 'Theo dõi pity',
+      url: '/trackers',
+      icon: ListEnd,
       isActive: true,
-      items: [
-        {
-          title: 'History',
-          url: '#',
-        },
-        {
-          title: 'Starred',
-          url: '#',
-        },
-        {
-          title: 'Settings',
-          url: '#',
-        },
-      ],
+      items: [],
     },
     {
-      title: 'Models',
-      url: '#',
-      icon: Bot,
-      items: [
-        {
-          title: 'Genesis',
-          url: '#',
-        },
-        {
-          title: 'Explorer',
-          url: '#',
-        },
-        {
-          title: 'Quantum',
-          url: '#',
-        },
-      ],
+      title: 'Thông số toàn cầu',
+      url: '/global',
+      icon: Globe,
+      isActive: false,
+      items: [],
     },
     {
-      title: 'Documentation',
-      url: '#',
-      icon: BookOpen,
-      items: [
-        {
-          title: 'Introduction',
-          url: '#',
-        },
-        {
-          title: 'Get Started',
-          url: '#',
-        },
-        {
-          title: 'Tutorials',
-          url: '#',
-        },
-        {
-          title: 'Changelog',
-          url: '#',
-        },
-      ],
-    },
-    {
-      title: 'Settings',
-      url: '#',
-      icon: Settings2,
-      items: [
-        {
-          title: 'General',
-          url: '#',
-        },
-        {
-          title: 'Team',
-          url: '#',
-        },
-        {
-          title: 'Billing',
-          url: '#',
-        },
-        {
-          title: 'Limits',
-          url: '#',
-        },
-      ],
+      title: 'Sự kiện',
+      url: '/events',
+      icon: CalendarHeart,
+      isActive: false,
+      items: [],
     },
   ],
-  projects: [
+  'Cách chơi': [
     {
-      name: 'Design Engineering',
-      url: '#',
-      icon: Frame,
+      title: 'Nhân vật',
+      url: '/resonators',
+      icon: Users2Icon,
+      isActive: true,
+      items: [],
     },
     {
-      name: 'Sales & Marketing',
-      url: '#',
-      icon: PieChart,
+      title: 'Vũ khí',
+      url: '/weapons',
+      icon: SwordsIcon,
+      isActive: false,
+      items: [],
     },
     {
-      name: 'Travel',
-      url: '#',
-      icon: Map,
+      title: 'Echos',
+      url: '/echos',
+      icon: AudioLinesIcon,
+      isActive: false,
+      items: [],
+    },
+  ],
+  'Hướng dẫn': [
+    {
+      title: 'Cách nhập lịch sử',
+      url: '/howto',
+      icon: DownloadIcon,
+      isActive: true,
+      items: [],
+    },
+    {
+      title: 'FAQ',
+      url: '/faq',
+      icon: MessageCircleQuestionIcon,
+      isActive: false,
+      items: [],
     },
   ],
 };
@@ -169,50 +115,69 @@ export function AppSidebar({
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <SidebarMenuButton tooltip="wuwatracker">
-          <XCircle />
-          <span>wuwatracker</span>
-        </SidebarMenuButton>
+        <Link to="/">
+          <SidebarMenuButton tooltip="wuwatracker">
+            <XCircle />
+            wuwatracker
+          </SidebarMenuButton>
+        </Link>
       </SidebarHeader>
       <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>Platform</SidebarGroupLabel>
-          <SidebarMenu>
-            {data.navMain.map((item) => (
-              <Collapsible
-                key={item.title}
-                asChild
-                defaultOpen={item.isActive}
-                className="group/collapsible"
-              >
-                <SidebarMenuItem>
-                  <CollapsibleTrigger asChild>
-                    <SidebarMenuButton tooltip={item.title}>
-                      {item.icon && <item.icon />}
-                      <span>{item.title}</span>
-                      <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                    </SidebarMenuButton>
-                  </CollapsibleTrigger>
-                  <CollapsibleContent>
-                    <SidebarMenuSub>
-                      {item.items?.map((subItem) => (
-                        <SidebarMenuSubItem
-                          key={subItem.title}
-                        >
-                          <SidebarMenuSubButton asChild>
-                            <a href={subItem.url}>
-                              <span>{subItem.title}</span>
-                            </a>
-                          </SidebarMenuSubButton>
-                        </SidebarMenuSubItem>
-                      ))}
-                    </SidebarMenuSub>
-                  </CollapsibleContent>
-                </SidebarMenuItem>
-              </Collapsible>
-            ))}
-          </SidebarMenu>
-        </SidebarGroup>
+        {Object.entries(data).map(([label, items]) => (
+          <SidebarGroup key={label + '-key'}>
+            <SidebarGroupLabel>{label}</SidebarGroupLabel>
+            <SidebarMenu>
+              {items.map((item) =>
+                item.items.length > 0 ? (
+                  <Collapsible
+                    key={item.title}
+                    asChild
+                    defaultOpen={item.isActive}
+                    className="group/collapsible"
+                  >
+                    <SidebarMenuItem>
+                      <CollapsibleTrigger asChild>
+                        <Link to={item.url}>
+                          {' '}
+                          <SidebarMenuButton tooltip={item.title}>
+                            {item.icon && <item.icon />}
+                            {item.title}
+                            <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                          </SidebarMenuButton>
+                        </Link>
+                      </CollapsibleTrigger>
+                      <CollapsibleContent>
+                        <SidebarMenuSub>
+                          {item.items?.map((subItem) =>
+                            subItem ? (
+                              <SidebarMenuSubItem key={subItem.title}>
+                                <SidebarMenuSubButton asChild>
+                                  <a href={subItem.url}>
+                                    <span>{subItem.title}</span>
+                                  </a>
+                                </SidebarMenuSubButton>
+                              </SidebarMenuSubItem>
+                            ) : null,
+                          )}
+                        </SidebarMenuSub>
+                      </CollapsibleContent>
+                    </SidebarMenuItem>
+                  </Collapsible>
+                ) : (
+                  <SidebarMenuItem key={item.title}>
+                    <Link to={item.url}>
+                      {' '}
+                      <SidebarMenuButton tooltip={item.title}>
+                        {item.icon && <item.icon />}
+                        {item.title}
+                      </SidebarMenuButton>
+                    </Link>
+                  </SidebarMenuItem>
+                ),
+              )}
+            </SidebarMenu>
+          </SidebarGroup>
+        ))}
       </SidebarContent>
       <SidebarRail />
     </Sidebar>

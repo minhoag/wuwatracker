@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 interface Props {
   eventName: string;
   eventDuration: number;
@@ -14,11 +12,11 @@ export function ButtonWuwa({
   return (
     <span className="w-full h-full p-0 truncate relative z-10 text-xs sm:text-base flex gap-3">
       <div className="my-2 mx-3 inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 relative z-10 dark:bg-foreground/10 dark:text-foreground bg-primary/10 text-primary border-none group-hover:bg-primary dark:group-hover:bg-primary/10 dark:group-hover:text-primary group-hover:text-background">
-        {eventDuration}d left
+        {eventDuration}n còn lại
       </div>
       <span className="truncate my-auto">{eventName}</span>
       <img
-        alt="Tower of Adversity: Hazard Revisited"
+        alt={eventName}
         loading="lazy"
         width={1440}
         height={520}

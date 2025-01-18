@@ -15,9 +15,7 @@ self.addEventListener('fetch', (event) => {
       // we will open the assets cache
       caches.open('assets').then(async (cache) => {
         // if the request is cached we will use the cache
-        let cacheResponse = await cache.match(
-          event.request,
-        );
+        let cacheResponse = await cache.match(event.request);
         if (cacheResponse) return cacheResponse;
 
         // if it's not cached we will run the fetch, cache it and return it
@@ -31,24 +29,16 @@ self.addEventListener('fetch', (event) => {
             // we will use the locales cache
             caches.open('locales').then(async (cache) => {
               // we will run the fetch
-              let fetchResponsePromise = fetch(
-                event.request,
-              );
+              let fetchResponsePromise = fetch(event.request);
               try {
                 // try to read from cache
-                let cacheResponse = await cache.match(
-                  event.request,
-                );
+                let cacheResponse = await cache.match(event.request);
                 if (cacheResponse) return cacheResponse;
               } finally {
                 // and finally if it was not cached or after we sent the response
-                let fetchResponse =
-                  await fetchResponsePromise;
+                let fetchResponse = await fetchResponsePromise;
                 // we will update the cache
-                cache.put(
-                  event.request,
-                  fetchResponse.clone(),
-                );
+                cache.put(event.request, fetchResponse.clone());
                 // and return the response
                 return fetchResponse;
               }

@@ -4,9 +4,7 @@ import * as React from 'react';
 
 const Separator = React.forwardRef<
   React.ElementRef<typeof SeparatorPrimitive.Root>,
-  React.ComponentPropsWithoutRef<
-    typeof SeparatorPrimitive.Root
-  >
+  React.ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root>
 >(
   (
     {
