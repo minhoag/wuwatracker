@@ -1,11 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import {
-  useInView,
-  useMotionValue,
-  useSpring,
-} from 'motion/react';
+import { useInView, useMotionValue, useSpring } from 'motion/react';
 import { useEffect, useRef } from 'react';
 
 export function CountUp({
@@ -26,8 +22,8 @@ export function CountUp({
     direction === 'down' ? value : 0,
   );
   const springValue = useSpring(motionValue, {
-    damping: 60,
-    stiffness: 100,
+    damping: 65,
+    stiffness: 250,
   });
   const isInView = useInView(ref, {
     once: true,
@@ -45,13 +41,10 @@ export function CountUp({
     () =>
       springValue.on('change', (latest) => {
         if (ref.current) {
-          ref.current.textContent = Intl.NumberFormat(
-            'en-US',
-            {
-              minimumFractionDigits: decimalPlaces,
-              maximumFractionDigits: decimalPlaces,
-            },
-          ).format(Number(latest.toFixed(decimalPlaces)));
+          ref.current.textContent = Intl.NumberFormat('en-US', {
+            minimumFractionDigits: decimalPlaces,
+            maximumFractionDigits: decimalPlaces,
+          }).format(Number(latest.toFixed(decimalPlaces)));
         }
       }),
     [springValue, decimalPlaces],
