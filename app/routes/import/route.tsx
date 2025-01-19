@@ -12,29 +12,53 @@ import {
   StepTwoTitle,
   Stepper,
 } from '@/routes/import/stepper.import';
-import { Link } from '@remix-run/react';
+import type { ActionFunctionArgs } from '@remix-run/node';
+import { Form, Link } from '@remix-run/react';
 import { TriangleAlert } from 'lucide-react';
 
-const steps = [
-  {
-    title:
-      'Đầu tiên, khởi động trò chơi và mở chi tiết lịch sử trong trò chơi của bạn.',
-    description: '',
-    render: <StepOne />,
-  },
-  {
-    title: <StepTwoTitle />,
-    description: '',
-    render: <StepTwo />,
-  },
-  {
-    title: 'Bấm vào nút "Nhập dữ liệu" để hoàn tất.',
-    description: '',
-    render: <StepThree />,
-  },
-];
+export async function action({ request }: ActionFunctionArgs) {
+  const formData = await request.formData();
+  const url = String(formData.get('url'));
+  const errors: { [key: string]: string } = {
+    url: '',
+  };
+
+  if (!url) {
+    errors.url = 'URL must not be empty';
+  } else if (
+    !url.startsWith(
+      'https://aki-gm-resources-oversea.aki-game.net/aki/gacha/index.html',
+    )
+  ) {
+    errors.url =
+      'Link bạn vừa dán vào không hợp lệ. Link mẫu: https://aki-gm-resources-oversea.aki-game.net...';
+  }
+  if (Object.keys(errors).length > 0) {
+    return { errors };
+  }
+  return null;
+}
 
 export default function Page() {
+  const steps = [
+    {
+      title:
+        'Đầu tiên, khởi động trò chơi và mở chi tiết lịch sử trong trò chơi của bạn.',
+      description: '',
+      render: <StepOne />,
+    },
+    {
+      title: <StepTwoTitle />,
+      description: '',
+      render: <StepTwo />,
+    },
+    {
+      title: 'Bấm vào nút "Nhập dữ liệu" để hoàn tất.',
+      description: '',
+      render: <StepThree />,
+    },
+  ];
+
   return (
     <div className="max-w-screen-md mx-auto my-4 px-6 sm:my-8 sm:mb-16">
       <h1 className="mb-6 scroll-m-20 text-3xl font-bold tracking-tighter md:text-4xl">
@@ -105,7 +129,9 @@ export default function Page() {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="automatic">
-              <Stepper step={steps}></Stepper>
+              <Form preventScrollReset method="post">
+                <Stepper step={steps}></Stepper>
+              </Form>
             </TabsContent>
           </Tabs>
         </TabsContent>
