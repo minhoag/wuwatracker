@@ -54,6 +54,13 @@ const data: { [key: string]: Props[] } = {
       items: [],
     },
     {
+      title: 'Nhập dữ liệu',
+      url: '/import',
+      icon: DownloadIcon,
+      isActive: true,
+      items: [],
+    },
+    {
       title: 'Thông số toàn cầu',
       url: '/global',
       icon: Globe,
