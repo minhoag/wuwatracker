@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -7,6 +7,7 @@ import {
 } from '@/components/ui/card';
 import { CountUp } from '@/components/ui/count-up';
 import { GlobalSelect } from '@/routes/global/global.select';
+import { Link } from '@remix-run/react';
 import { ChartColumn } from 'lucide-react';
 
 export function GlobalStatistics() {
@@ -103,10 +104,13 @@ export function SelectStatistics() {
         </div>
       </CardContent>
       <CardFooter className="flex justify-end">
-        <Button className="w-1/2 md:w-1/3">
+        <Link
+          to="/trackers"
+          className={`${buttonVariants()} w-1/2 md:w-1/3`}
+        >
           <ChartColumn />
           Xem thông số của bạn
-        </Button>
+        </Link>
       </CardFooter>
     </Card>
   );
