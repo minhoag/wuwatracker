@@ -211,9 +211,14 @@ body {
   }
 }
 
-
-    .mask-gradient-to-t-and-b {
-  mask-image: linear-gradient(180deg, transparent 0, #000 5%, rgba(0, 0, 0, .9) 95%, transparent);
+.mask-gradient-to-t-and-b {
+  mask-image: linear-gradient(
+    180deg,
+    transparent 0,
+    #000 5%,
+    rgba(0, 0, 0, 0.9) 95%,
+    transparent
+  );
 }
 
 .camellya {

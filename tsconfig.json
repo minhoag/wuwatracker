@@ -24,7 +24,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./app/*"],
-      "@/prisma": ["./prisma/prisma"],
+      "@/prisma": ["./prisma/prisma"]
     },
 
     // Vite takes care of building everything, not tsc.

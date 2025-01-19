@@ -38,7 +38,6 @@ import {
   ScrollRestoration,
 } from '@remix-run/react';
 import { BadgeCheck, CreditCard, LogIn, X } from 'lucide-react';
-import { NuqsAdapter } from 'nuqs/adapters/remix';
 import { useLocation } from 'react-router-dom';
 
 import styles from './tailwind.css?url';
@@ -64,6 +63,7 @@ export const vietnamese: { [key: string]: string } = {
   '/': 'Trang chủ',
   '/trackers': 'Theo dõi triệu tập',
   '/global': 'Số liệu toàn cầu',
+  '/import': 'Nhập dữ liệu',
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
