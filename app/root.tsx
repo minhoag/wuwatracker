@@ -36,8 +36,15 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useRouteError,
 } from '@remix-run/react';
-import { BadgeCheck, CreditCard, LogIn, X } from 'lucide-react';
+import {
+  BadgeCheck,
+  CreditCard,
+  LogIn,
+  UserIcon,
+  X,
+} from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 
 import styles from './tailwind.css?url';
@@ -133,7 +140,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                     <Avatar className="h-8 w-8 rounded-lg">
                       <AvatarImage src={''} alt={''} />
                       <AvatarFallback className="rounded-lg">
-                        CN
+                        <UserIcon className="h-4 w-4 rounded-full" />
                       </AvatarFallback>
                     </Avatar>
                   </DropdownMenuTrigger>
@@ -164,9 +171,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 </DropdownMenu>
               </div>
             </header>
-            <main className="min-h-[calc(100vh-2rem)] relative z-0 pb-8 sm:pb-0">
-              {children}
-            </main>
+            <div className="relative z-0 min-h-[calc(100vh-2rem)] pb-8 sm:pb-0">
+              <main className="mx-auto my-4 flex w-full max-w-screen-xl flex-1 flex-col px-4 sm:my-8 sm:mb-16 md:px-6">
+                {children}
+              </main>
+            </div>
             <Footer />
           </SidebarInset>
         </SidebarProvider>
@@ -179,4 +188,26 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return <Outlet />;
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+  console.error(error);
+  return (
+    <html>
+      <head>
+        <title>Oh no!</title>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <div>
+          Đã có lỗi bất ngờ xảy ra, hoặc trang web đang trong trạng
+          thái bảo trì. Quay lại trang trước?
+        </div>
+        <button>Quay lại</button>
+        <Scripts />
+      </body>
+    </html>
+  );
 }

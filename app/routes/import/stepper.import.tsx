@@ -57,13 +57,18 @@ export const Stepper = ({ step }: StepperProps) => {
 
 export function StepOne() {
   return (
-    <div>
+    <>
       <div className="flex w-full items-center space-x-2">
         <div className="relative w-full" data-state="closed">
-          <div className="h-10 flex items-center justify-between border gap-2 rounded-md pl-3 pr-1.5">
-            <code className="text-[13px] overflow-x-auto whitespace-nowrap">
-              iwr -useb "https://wuwatracker.com/import.ps1" | iex
-            </code>
+          <div className="h-10 flex items-center justify-between border gap-2 rounded-md pr-1.5">
+            <Input
+              className="bg-transparent placeholder:text-foreground border-0 overflow-auto resize-none w-full font-mono text-xs text-foreground focus:outline-none dark:shadow-none"
+              disabled={true}
+              type="text"
+              placeholder={
+                'iwr -useb "https://wuwatracker.com/import.ps1" | iex'
+              }
+            />
             <CopyButton
               value={
                 'iwr -useb "https://wuwatracker.com/import.ps1" | iex'
@@ -72,7 +77,7 @@ export function StepOne() {
           </div>
         </div>
       </div>
-      <p className="my-2 text-xs font-normal text-muted-foreground md:text-sm">
+      <p className="my-2 text-xs text-justify font-normal text-muted-foreground md:text-sm">
         LƯU Ý: Mã lệnh này hoàn toàn <b>KHÔNG</b> can thiệp gì đến
         file game của bạn (chỉnh sửa, thêm bớt, xóa file). Mã lệnh chỉ
         đọc dữ liệu từ file lịch sử của bạn và gửi lên máy chủ của
@@ -97,7 +102,7 @@ export function StepOne() {
       >
         Tải về mã lệnh
       </Link>
-    </div>
+    </>
   );
 }
 

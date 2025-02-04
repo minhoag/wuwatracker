@@ -142,17 +142,15 @@ export function GlobalChart() {
   });
 
   return (
-    <Card className="w-full md:w-3/4 rounded-sm">
-      <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
+    <Card className="rounded-xl border bg-card text-card-foreground shadow flex-1 w-full">
+      <CardHeader className="flex-col px-6 flex items-center gap-2 space-y-0 py-5 sm:flex-row">
         <div className="grid flex-1 gap-1 text-center sm:text-left">
           <span className="truncate text-base font-semibold sm:text-xl">
-            Số lượt quay mỗi ngày
+            Thông số quay mỗi ngày
           </span>
-          <CardDescription>
-            <span className="truncate text-sm text-muted-foreground sm:text-base">
-              Hiển thị số lần rút mỗi ngày và phân bố độ hiếm
-            </span>
-          </CardDescription>
+          <p className="truncate text-sm text-muted-foreground sm:text-base">
+            Phân bổ theo độ hiếm
+          </p>
         </div>
         <Select value={timeRange} onValueChange={setTimeRange}>
           <SelectTrigger

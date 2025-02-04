@@ -1,10 +1,17 @@
-export type EventProps = {
+export interface Event {
+  id: string;
   name: string;
-  eventType: 'Weapon' | 'Character' | 'Event';
-  imgSrc: string[];
   description: string;
-  duration: string;
-};
+  active: boolean;
+  imgSrc: string;
+  startAt: string;
+  endAt: string;
+}
+
+export interface EventProps extends Event {
+  eventType: 'Weapon' | 'Character' | 'Event';
+  duration?: string;
+}
 
 /**
  * @name StatisticProps

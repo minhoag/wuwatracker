@@ -1,8 +1,8 @@
-import { prisma } from '@/prisma';
-import { EventProps, UserProps } from '@/types';
+import { api } from '@/lib/utils';
 import type { MetaFunction } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 
+import { Event, EventProps } from '@/types';
 import {
   GuideCard,
   InfoCard,
@@ -21,59 +21,54 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export async function loader() {
-  try {
-    const [user, total_pulls, event] = await Promise.all([
-      prisma.user.findMany(),
-      prisma.user.aggregate({
-        _sum: {
-          pulls: true,
-        },
-      }),
-      prisma.event.findMany({
-        orderBy: {
-          duration: 'desc',
-        },
-      }),
-    ]);
-    return {
-      user,
-      total_pulls: total_pulls._sum.pulls as number,
-      event,
-    };
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      console.log(error.message);
-    } else {
-      console.log('An unknown error occurred when loading USER.');
-    }
-    return { user: [], total_pulls: 0, event: [] };
-  }
-}
+export const loader = async () => {
+  const statistics = await api<{
+    total_players: number;
+    total_convenes: number;
+  }>('statistic');
+  const activeEvent: Event[] = await api<Event[]>(
+    'events',
+    '?active=true',
+  );
+  return {
+    total_players: statistics.total_players,
+    total_convenes: statistics.total_convenes,
+    activeEvent: activeEvent,
+  };
+};
+
 export default function Index() {
-  const {
-    user,
-    total_pulls,
-    event,
-  }: {
-    user: UserProps[];
-    total_pulls: number;
-    event: EventProps[];
-  } = useLoaderData<typeof loader>();
-  const character: EventProps[] =
-    event.filter((e) => e.eventType === 'Character') ?? [];
+  const loader: {
+    total_players: number;
+    total_convenes: number;
+    activeEvent: Event[];
+  } = useLoaderData();
+  const character_up: EventProps[] = [
+    {
+      name: 'Kazuha',
+      eventType: 'Character',
+      imgSrc: 'https://i.imgur.com/5zr6N2I.png',
+      description:
+        'Kazuha is the character up for the current banner.',
+      duration: 'June 29th - July 20th',
+      id: '',
+      active: false,
+      startAt: '',
+      endAt: '',
+    },
+  ];
   return (
-    <div className="max-w-screen-xl w-full flex-1 flex-col px-4 my-4 sm:my-8 sm:mb-16 md:px-6 mx-auto grid grid-cols-1 gap-6 lg:grid-cols-12">
+    <div className="max-w-screen-xl w-full flex-1 flex-col mx-auto grid grid-cols-1 gap-6 lg:grid-cols-12">
       {/* Introductory Card */}
       <IntroductoryCard />
       {/* Statistic Card */}
       <StatisticCard
-        character_up={character}
-        total_pulls={total_pulls}
-        players={user.length}
+        character_up={character_up}
+        total_pulls={loader.total_convenes}
+        players={loader.total_players}
       />
       {/* Event Card */}
-      <OngoingEventCard data={event} />
+      <OngoingEventCard data={loader.activeEvent} />
       {/* Guide Card */}
       <GuideCard />
       {/* Info Card */}

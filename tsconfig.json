@@ -23,8 +23,7 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./app/*"],
-      "@/prisma": ["./prisma/prisma"]
+      "@/*": ["./app/*"]
     },
 
     // Vite takes care of building everything, not tsc.
