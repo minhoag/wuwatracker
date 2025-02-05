@@ -41,7 +41,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function GlobalPieChart() {
+export function PiechartGlobal() {
   const totalVisitors = chartData.reduce(
     (acc, { visitors }) => acc + visitors,
     0,

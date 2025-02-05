@@ -29,24 +29,39 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
-import type { LinksFunction } from '@remix-run/node';
+import {
+  json,
+  LinksFunction,
+  LoaderFunctionArgs,
+} from '@remix-run/node';
 import {
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
+  useNavigate,
   useRouteError,
 } from '@remix-run/react';
 import {
   BadgeCheck,
   CreditCard,
   LogIn,
+  LogOut,
   UserIcon,
   X,
 } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 
+import { Button } from '@/components/ui/button';
+import { Toaster } from '@/components/ui/sonner';
+import { useSupabase } from '@/lib/supabase';
+import {
+  getSupabaseEnv,
+  getSupabaseWithSessionAndHeaders,
+} from '@/lib/superbase.server';
+import React from 'react';
 import styles from './tailwind.css?url';
 
 export const links: LinksFunction = () => [
@@ -66,6 +81,20 @@ export const links: LinksFunction = () => [
   },
 ];
 
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  const { serverSession, headers, userSession } =
+    await getSupabaseWithSessionAndHeaders({
+      request,
+    });
+  const domainUrl = process.env.DOMAIN_URL!;
+
+  const env = getSupabaseEnv();
+  return json(
+    { serverSession, userSession, env, domainUrl },
+    { headers },
+  );
+};
+
 export const vietnamese: { [key: string]: string } = {
   '/': 'Trang chủ',
   '/trackers': 'Theo dõi triệu tập',
@@ -76,6 +105,13 @@ export const vietnamese: { [key: string]: string } = {
 export function Layout({ children }: { children: React.ReactNode }) {
   const currentRoute = useLocation();
   const matches = vietnamese[currentRoute.pathname];
+  const navigate = useNavigate();
+  const { userSession, env, serverSession, domainUrl } =
+    useLoaderData<typeof loader>();
+  const { supabase } = useSupabase({ env, serverSession });
+  async function signOut() {
+    await supabase.auth.signOut();
+  }
   return (
     <html lang="en" className="dark">
       <head>
@@ -86,8 +122,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         />
         <Meta />
         <Links />
+        <title></title>
       </head>
       <body>
+        <Toaster />
         <SidebarProvider defaultOpen={false}>
           <AppSidebar />
           <SidebarInset>
@@ -150,7 +188,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
                     align="end"
                     sideOffset={4}
                   >
-                    <DropdownMenuLabel>Guest</DropdownMenuLabel>
+                    <DropdownMenuLabel>
+                      {userSession ? userSession.email : 'Guest'}
+                    </DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuGroup>
                       <DropdownMenuItem>
@@ -164,13 +204,33 @@ export function Layout({ children }: { children: React.ReactNode }) {
                     </DropdownMenuGroup>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>
-                      <LogIn />
-                      Sign In
+                      {serverSession ? (
+                        <Button
+                          onClick={() => signOut()}
+                          className="w-full flex justify-start"
+                          variant="ghost"
+                          size={null}
+                        >
+                          <LogOut />
+                          Sign out
+                        </Button>
+                      ) : (
+                        <Button
+                          onClick={() => navigate('/auth')}
+                          className="w-full flex justify-start"
+                          variant="ghost"
+                          size={null}
+                        >
+                          <LogIn />
+                          Sign In
+                        </Button>
+                      )}
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
             </header>
+            <Outlet context={{ supabase, domainUrl }} />
             <div className="relative z-0 min-h-[calc(100vh-2rem)] pb-8 sm:pb-0">
               <main className="mx-auto my-4 flex w-full max-w-screen-xl flex-1 flex-col px-4 sm:my-8 sm:mb-16 md:px-6">
                 {children}
@@ -187,14 +247,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return;
 }
 
 export function ErrorBoundary() {
   const error = useRouteError();
   console.error(error);
   return (
-    <html>
+    <html lang="vi">
       <head>
         <title>Oh no!</title>
         <Meta />

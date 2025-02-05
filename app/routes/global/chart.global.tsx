@@ -1,11 +1,6 @@
 'use client';
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-} from '@/components/ui/card';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import {
   ChartConfig,
   ChartContainer,
@@ -124,7 +119,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function GlobalChart() {
+export function ChartGlobal() {
   const [timeRange, setTimeRange] = React.useState('90d');
 
   const filteredData = chartData.filter((item) => {

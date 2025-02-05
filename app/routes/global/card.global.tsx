@@ -1,4 +1,4 @@
-import { Button, buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -6,7 +6,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { CountUp } from '@/components/ui/count-up';
-import { GlobalSelect } from '@/routes/global/global.select';
+import { SelectGlobal } from '@/routes/global/select.global';
 import { Link } from '@remix-run/react';
 import { ChartColumn } from 'lucide-react';
 
@@ -71,7 +71,7 @@ export function SelectStatistics() {
   return (
     <Card className="relative rounded-sm flex flex-col justify-between w-full md:w-1/2">
       <CardTitle className="w-full px-0">
-        <GlobalSelect />
+        <SelectGlobal />
       </CardTitle>
       <CardContent className="py-6 pt-0 flex flex-col gap-1 px-4 text-sm sm:px-5 sm:text-base">
         <div className="space-y-2">

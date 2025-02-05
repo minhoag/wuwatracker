@@ -7,7 +7,7 @@ import {
   SelectTrigger,
 } from '@/components/ui/select';
 
-export function GlobalSelect() {
+export function SelectGlobal() {
   return (
     <Select>
       <div className="flex flex-col space-y-1.5 py-6 px-1 pb-4 pt-2 sm:px-2">

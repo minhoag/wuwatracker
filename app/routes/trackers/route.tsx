@@ -7,7 +7,7 @@ import {
   HistoryCard,
   LuckRating,
   RecentCard,
-} from './trackers.card';
+} from './card.trackers';
 
 export default function Page() {
   const convene: ConveneHistoryProps[] = [
